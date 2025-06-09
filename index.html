@@ -8,13 +8,79 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&amp;display=swap" rel="stylesheet"/>
-  <script src="index.js"></script>
-  <link rel="stylesheet" href="index.css">
-
+  <style>
+   .fade-in {
+    animation: fadeIn 0.5s ease-in;
+   }
+   @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+   }
+   .carousel-container {
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    flex-grow: 1;
+   }
+   .carousel-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+   }
+   .carousel-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+   }
+   .progress-bar {
+    height: 4px;
+    background-color: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+   }
+   .progress-fill {
+    height: 100%;
+    background-color: #374151;
+    transition: width 0.3s ease;
+   }
+   .scroll-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+    max-height: 400px;
+   }
+   .scroll-area::-webkit-scrollbar {
+    width: 6px;
+   }
+   .scroll-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+   }
+   .scroll-area::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+   }
+   .scroll-area::-webkit-scrollbar-thumb:hover {
+    background: #555;
+   }
+   .scroll-content {
+    padding-right: 16px;
+   }
+   .button-container {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-top: 16px;
+    background: white;
+    margin-top: auto;
+   }
+  </style>
  </head>
  <body class="relative min-h-screen bg-gradient-to-b from-transparent to-white">
+
   <!-- Top dark bar -->
-  <form id="formulario" action="https://script.google.com/macros/s/AKfycbyN2BMR4DnG_kyoARYVaGYLu6ekr4rlSa3iX0HFxoHvCJHrhsSD66xaddhfMe6Z57kM/exec" method="POST">
   <div class="bg-gray-800 text-gray-300 text-xs flex justify-between items-center px-4 py-1">
    <div class="flex space-x-2">
     <a aria-label="Facebook" class="hover:text-white" href="#">
@@ -31,120 +97,322 @@
     <span>+51 948 578 222</span>
    </div>
   </div>
+  
   <!-- Background image -->
   <img alt="Background image of a beach at sunset with a fire in the foreground and blurred trees on the left" class="fixed inset-0 w-full h-full object-cover -z-10" height="1080" src="https://storage.googleapis.com/a1aa/image/67b0a5bc-867d-4f75-5164-b6c280c0a0ee.jpg" width="1920"/>
-  <main class="flex justify-center items-start pt-20 px-4 mb-20">
-   <section class="bg-white bg-opacity-90 max-w-4xl w-full shadow-lg p-10 mb-20" style="min-height: 600px; max-height: 600px; display: flex; flex-direction: column;">
-    <div class="flex items-start mb-6">
-     <div class="logo-container mr-8">
-      <img alt="Bao Bar logo, black line art of a bao bun with text Bao Bar above" height="110" src="https://storage.googleapis.com/a1aa/image/c9e1663d-8fb0-4761-6509-362febe2c611.jpg" width="110"/>
+  
+  <main class="flex justify-center items-center min-h-screen pt-16 pb-16 px-4">
+   <section class="bg-white bg-opacity-90 max-w-4xl w-full shadow-lg rounded-lg overflow-hidden" style="height: 700px; display: flex; flex-direction: column;">
+    
+    <!-- Header con logo y título centrado -->
+    <div class="flex items-center justify-center p-6 border-b border-gray-200">
+     <div class="flex items-center space-x-6">
+      <img alt="Bao Bar logo, black line art of a bao bun with text Bao Bar above" height="80" src="https://storage.googleapis.com/a1aa/image/c9e1663d-8fb0-4761-6509-362febe2c611.jpg" width="80"/>
+      <h1 class="font-extrabold text-3xl text-gray-900" id="form-title">
+       DATOS PERSONALES
+      </h1>
      </div>
-     <h1 class="font-extrabold text-2xl text-gray-900 self-center flex-1 text-center">
-      PREGUNTAS
-     </h1>
     </div>
-    <div id="scroll-container" tabindex="0" aria-label="Contenedor de preguntas con scroll" class="flex-1 overflow-y-auto pr-4">
-     <!-- Bloque 1 -->
-     <section class="fade-in mb-8">
-      <h2 class="font-bold text-gray-900 mb-4 text-sm">Mindset Comercial</h2>
-      <div class="space-y-6">
-       <div>
-        <p for="p1" class="mb-2 font-bold text-xs text-gray-700">Tengo metas SMART claras a corto, mediano y largo plazo</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p1-1"><input id="p1-1" name="p1" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p1-2"><input id="p1-2" name="p1" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p1-3"><input id="p1-3" name="p1" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p1-4"><input id="p1-4" name="p1" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p1-5"><input id="p1-5" name="p1" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-       <div>
-        <p for="p2" class="mb-2 font-bold text-xs text-gray-700">Me recupero rápido después de un “no” o una objeción difícil y tomo el próximo paso</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p2-1"><input id="p2-1" name="p2" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p2-2"><input id="p2-2" name="p2" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p2-3"><input id="p2-3" name="p2" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p2-4"><input id="p2-4" name="p2" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p2-5"><input id="p2-5" name="p2" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-       <div>
-        <p for="p3" class="mb-2 font-bold text-xs text-gray-700">Me mantengo enfocado y decisivo incluso cuando hay incertidumbre o falta de información</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p3-1"><input id="p3-1" name="p3" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p3-2"><input id="p3-2" name="p3" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p3-3"><input id="p3-3" name="p3" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p3-4"><input id="p3-4" name="p3" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p3-5"><input id="p3-5" name="p3" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-       <div>
-        <p for="p4" class="mb-2 font-bold text-xs text-gray-700">Tengo conciencia de mis fortalezas y debilidades como vendedor(a)</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p4-1"><input id="p4-1" name="p4" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p4-2"><input id="p4-2" name="p4" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p4-3"><input id="p4-3" name="p4" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p4-4"><input id="p4-4" name="p4" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p4-5"><input id="p4-5" name="p4" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-       <div>
-        <p for="p5" class="mb-2 font-bold text-xs text-gray-700">Mantengo un equilibrio personal entre mente, cuerpo y espíritu</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p5-1"><input id="p5-1" name="p5" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p5-2"><input id="p5-2" name="p5" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p5-3"><input id="p5-3" name="p5" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p5-4"><input id="p5-4" name="p5" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p5-5"><input id="p5-5" name="p5" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-      </div>
-     </section>
-     <!-- Bloque 2 -->
-     <section class="fade-in mb-8">
-      <h2 class="font-bold text-gray-900 mb-4 text-sm">Habilidades de Prospección</h2>
-      <div class="space-y-6">
-       <div>
-        <p for="p6" class="mb-2 font-bold text-xs text-gray-700">Tengo una rutina semanal de tareas definidas para prospectar clientes nuevos</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p6-1"><input id="p6-1" name="p6" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p6-2"><input id="p6-2" name="p6" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p6-3"><input id="p6-3" name="p6" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p6-4"><input id="p6-4" name="p6" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p6-5"><input id="p6-5" name="p6" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-       <div>
-        <p for="p7" class="mb-2 font-bold text-xs text-gray-700">Sé cómo identificar el segmento de clientes objetivos ideales para mis productos/servicios</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p7-1"><input id="p7-1" name="p7" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p7-2"><input id="p7-2" name="p7" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p7-3"><input id="p7-3" name="p7" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p7-4"><input id="p7-4" name="p7" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p7-5"><input id="p7-5" name="p7" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-       <div>
-        <p for="p8" class="mb-2 font-bold text-xs text-gray-700">Aplico los pasos claves para lograr una venta</p>
-        <div class="flex justify-between max-w-xs">
-         <label class="flex items-center cursor-pointer" for="p8-1"><input id="p8-1" name="p8" type="radio" value="1"/>1</label>
-         <label class="flex items-center cursor-pointer" for="p8-2"><input id="p8-2" name="p8" type="radio" value="2"/>2</label>
-         <label class="flex items-center cursor-pointer" for="p8-3"><input id="p8-3" name="p8" type="radio" value="3"/>3</label>
-         <label class="flex items-center cursor-pointer" for="p8-4"><input id="p8-4" name="p8" type="radio" value="4"/>4</label>
-         <label class="flex items-center cursor-pointer" for="p8-5"><input id="p8-5" name="p8" type="radio" value="5"/>5</label>
-        </div>
-       </div>
-      </div>
-     </section>
-     <button class="w-full border border-gray-700 text-xs font-semibold py-1 hover:bg-gray-100 mb-4" type="submit">
-      Enviar
-     </button>
+    
+    <!-- Progress Bar -->
+    <div class="px-6 pt-4">
+     <div class="progress-bar">
+      <div class="progress-fill" id="progress-bar" style="width: 50%;"></div>
+     </div>
     </div>
-    <footer class="text-center text-gray-500 text-[10px] mt-4 mb-20">
+    
+    <!-- Form Content -->
+    <div class="flex-1 p-6">
+     <form id="formulario" action="https://script.google.com/macros/s/AKfycbx7PAiX60uz5WOh3U_Egk254CBbeErl-bOVdfronVQmQWB6zZkDeZ2mLsGMFlsP76f-/exec" method="POST" class="h-full flex flex-col">
+     
+       <div class="carousel-container">
+        <div class="carousel-wrapper" id="carousel-wrapper">
+         
+         <!-- Slide 1: Datos Personales -->
+         <div class="carousel-slide">
+          <div class="scroll-area">
+           <div class="scroll-content space-y-6">
+            <div class="fade-in">
+             <label for="nombres" class="block mb-2 font-bold text-sm text-gray-700">Nombre completo</label>
+             <input type="text" id="nombres" name="nombres" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
+            </div>
+            
+            <div class="fade-in">
+             <label for="correo" class="block mb-2 font-bold text-sm text-gray-700">Correo electrónico</label>
+             <input type="email" id="correo" name="correo" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
+            </div>
+            
+            <div class="fade-in">
+             <label for="telefono" class="block mb-2 font-bold text-sm text-gray-700">Teléfono</label>
+             <input type="tel" id="telefono" name="telefono" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
+            </div>
+            
+           </div>
+          </div>
+          
+          <div class="button-container">
+           <button type="button" id="next-btn" class="w-full bg-gray-700 text-white text-sm font-semibold py-2 hover:bg-gray-800 rounded-md">
+            Siguiente
+           </button>
+          </div>
+         </div>
+         
+         <!-- Slide 2: Formulario con Preguntas -->
+         <div class="carousel-slide">
+           <div class="scroll-area">
+            <div class="scroll-content">
+             
+             <!-- Bloque 1 -->
+             <section class="fade-in mb-8">
+              <h2 class="font-bold text-gray-900 mb-4 text-sm">Mindset Comercial</h2>
+              <div class="space-y-6">
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Tengo metas SMART claras a corto, mediano y largo plazo</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p1-1"><input id="p1-1" name="p1" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p1-2"><input id="p1-2" name="p1" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p1-3"><input id="p1-3" name="p1" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p1-4"><input id="p1-4" name="p1" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p1-5"><input id="p1-5" name="p1" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Me recupero rápido después de un "no" o una objeción difícil y tomo el próximo paso</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p2-1"><input id="p2-1" name="p2" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p2-2"><input id="p2-2" name="p2" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p2-3"><input id="p2-3" name="p2" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p2-4"><input id="p2-4" name="p2" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p2-5"><input id="p2-5" name="p2" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Me mantengo enfocado y decisivo incluso cuando hay incertidumbre o falta de información</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p3-1"><input id="p3-1" name="p3" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p3-2"><input id="p3-2" name="p3" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p3-3"><input id="p3-3" name="p3" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p3-4"><input id="p3-4" name="p3" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p3-5"><input id="p3-5" name="p3" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Tengo conciencia de mis fortalezas y debilidades como vendedor(a)</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p4-1"><input id="p4-1" name="p4" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p4-2"><input id="p4-2" name="p4" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p4-3"><input id="p4-3" name="p4" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p4-4"><input id="p4-4" name="p4" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p4-5"><input id="p4-5" name="p4" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Mantengo un equilibrio personal entre mente, cuerpo y espíritu</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p5-1"><input id="p5-1" name="p5" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p5-2"><input id="p5-2" name="p5" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p5-3"><input id="p5-3" name="p5" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p5-4"><input id="p5-4" name="p5" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p5-5"><input id="p5-5" name="p5" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+              </div>
+             </section>
+             
+             <!-- Bloque 2 -->
+             <section class="fade-in mb-8">
+              <h2 class="font-bold text-gray-900 mb-4 text-sm">Habilidades de Prospección</h2>
+              <div class="space-y-6">
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Tengo una rutina semanal de tareas definidas para prospectar clientes nuevos</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p6-1"><input id="p6-1" name="p6" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p6-2"><input id="p6-2" name="p6" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p6-3"><input id="p6-3" name="p6" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p6-4"><input id="p6-4" name="p6" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p6-5"><input id="p6-5" name="p6" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Sé cómo identificar el segmento de clientes objetivos ideales para mis productos/servicios</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p7-1"><input id="p7-1" name="p7" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p7-2"><input id="p7-2" name="p7" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p7-3"><input id="p7-3" name="p7" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p7-4"><input id="p7-4" name="p7" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p7-5"><input id="p7-5" name="p7" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+               <div>
+                <p class="mb-2 font-bold text-xs text-gray-700">Aplico los pasos claves para lograr una venta</p>
+                <div class="flex justify-between max-w-xs">
+                 <label class="flex items-center cursor-pointer" for="p8-1"><input id="p8-1" name="p8" type="radio" value="1" required/>1</label>
+                 <label class="flex items-center cursor-pointer" for="p8-2"><input id="p8-2" name="p8" type="radio" value="2"/>2</label>
+                 <label class="flex items-center cursor-pointer" for="p8-3"><input id="p8-3" name="p8" type="radio" value="3"/>3</label>
+                 <label class="flex items-center cursor-pointer" for="p8-4"><input id="p8-4" name="p8" type="radio" value="4"/>4</label>
+                 <label class="flex items-center cursor-pointer" for="p8-5"><input id="p8-5" name="p8" type="radio" value="5"/>5</label>
+                </div>
+               </div>
+              </div>
+             </section>
+            </div>
+           </div>
+           
+           <div class="button-container">
+            <div class="flex gap-4 w-full">
+             <button type="button" id="prev-btn" class="flex-1 border border-gray-700 text-xs font-semibold py-1 hover:bg-gray-100">
+              Anterior
+             </button>
+             <button class="flex-1 border border-gray-700 text-xs font-semibold py-1 hover:bg-gray-100" type="submit">
+              Enviar
+             </button>
+            </div>
+            <div id="mensaje"></div>
+           </div>
+         </div>
+         
+        </div>
+       </div>
+     
+     </form>
+    </div>
+    
+    <!-- Footer ubicado correctamente en la parte inferior del contenedor -->
+    <div class="text-center text-gray-500 text-xs py-3 border-t border-gray-200 bg-gray-50">
      © 2019 bao bar. All Rights Reserved.
-    </footer>
+    </div>
    </section>
   </main>
-  </form>
+
+  <script>
+   let currentSlide = 0;
+   const totalSlides = 2;
+   
+   const carouselWrapper = document.getElementById('carousel-wrapper');
+   const nextBtn = document.getElementById('next-btn');
+   const prevBtn = document.getElementById('prev-btn');
+   const formTitle = document.getElementById('form-title');
+   const progressBar = document.getElementById('progress-bar');
+   const formulario = document.getElementById('formulario');
+
+   function updateCarousel() {
+    carouselWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    if (currentSlide === 0) {
+     formTitle.textContent = 'DATOS PERSONALES';
+     progressBar.style.width = '50%';
+    } else {
+     formTitle.textContent = 'PREGUNTAS';
+     progressBar.style.width = '100%';
+    }
+   }
+
+   function validatePersonalData() {
+    const nombre = document.getElementById('nombres').value.trim();
+    const email = document.getElementById('correo').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    
+    return nombre !== '' && email !== '' && telefono !== '';
+   }
+
+   nextBtn.addEventListener('click', function() {
+    if (validatePersonalData()) {
+     if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateCarousel();
+     }
+    } else {
+     alert('Por favor, completa todos los campos obligatorios.');
+    }
+   });
+
+   prevBtn.addEventListener('click', function() {
+    if (currentSlide > 0) {
+     currentSlide--;
+     updateCarousel();
+    }
+   });
+
+   formulario.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Validar que todas las preguntas estén respondidas
+    const preguntas = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'];
+    let todasRespondidas = true;
+    
+    preguntas.forEach(function(pregunta) {
+     const radios = document.getElementsByName(pregunta);
+     let respondida = false;
+     
+     for (let i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+       respondida = true;
+       break;
+      }
+     }
+     
+     if (!respondida) {
+      todasRespondidas = false;
+     }
+    });
+    
+    if (!todasRespondidas) {
+     alert('Por favor, responde todas las preguntas.');
+     return;
+    }
+    
+    // Mostrar mensaje de envío
+    const mensaje = document.getElementById('mensaje');
+    mensaje.innerHTML = '<div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mt-4 text-xs">Enviando formulario...</div>';
+    
+    // Crear FormData manualmente para asegurar compatibilidad
+    const formData = new FormData();
+    formData.append('nombres', document.getElementById('nombres').value);
+    formData.append('correo', document.getElementById('correo').value);
+    formData.append('telefono', document.getElementById('telefono').value);
+    
+    // Agregar respuestas de preguntas
+    preguntas.forEach(function(pregunta) {
+     const radios = document.getElementsByName(pregunta);
+     for (let i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+       formData.append(pregunta, radios[i].value);
+       break;
+      }
+     }
+    });
+    
+    // Enviar formulario a Google Sheets
+    fetch(formulario.action, {
+     method: 'POST',
+     body: formData
+    })
+    .then(response => {
+     if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+     }
+     return response.text();
+    })
+    .then(data => {
+     console.log('Respuesta del servidor:', data);
+     mensaje.innerHTML = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4 text-xs">¡Formulario enviado exitosamente!</div>';
+     
+     // Resetear formulario después del envío exitoso
+     setTimeout(() => {
+      formulario.reset();
+      currentSlide = 0;
+      updateCarousel();
+      mensaje.innerHTML = '';
+     }, 3000);
+    })
+    .catch(error => {
+     console.error('Error completo:', error);
+     mensaje.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4 text-xs">Error al enviar el formulario: ' + error.message + '</div>';
+    });
+   });
+
+   // Initialize carousel
+   updateCarousel();
+  </script>
  </body>
 </html>
