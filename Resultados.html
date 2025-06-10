@@ -254,7 +254,12 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* MEJORAS PARA MÓVIL */
     @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
       .header {
         padding: 30px 20px;
       }
@@ -265,6 +270,14 @@
       
       .content {
         padding: 20px;
+      }
+      
+      .section {
+        margin-bottom: 30px;
+      }
+      
+      .section-title {
+        font-size: 1.5em;
       }
       
       .pie-charts-grid {
@@ -278,6 +291,48 @@
       th, td {
         padding: 8px 6px;
         font-size: 0.85em;
+      }
+
+      /* MEJORAS ESPECÍFICAS PARA EL GRÁFICO DE BARRAS EN MÓVIL */
+      .bar-chart-container {
+        height: 600px; /* Más altura en móvil */
+        padding: 10px 0;
+      }
+
+      .chart-container {
+        padding: 20px 15px;
+      }
+
+      .stats-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .stat-card {
+        padding: 20px 15px;
+      }
+
+      .stat-number {
+        font-size: 2em;
+      }
+    }
+
+    /* Para pantallas muy pequeñas */
+    @media (max-width: 480px) {
+      .bar-chart-container {
+        height: 700px; /* Aún más altura para móviles pequeños */
+      }
+
+      .stats-summary {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      .section-title {
+        font-size: 1.3em;
       }
     }
   </style>
@@ -352,6 +407,22 @@
     "p7": "Sé cómo identificar el segmento",
     "p8": "Aplico los pasos claves"
   };
+
+  // Versiones cortas para móvil
+  const encabezadosCortos = {
+    "p1": "Metas SMART",
+    "p2": "Recuperación rápida",
+    "p3": "Enfoque y decisión",
+    "p4": "Conciencia fortalezas",
+    "p5": "Equilibrio personal",
+    "p6": "Rutina semanal",
+    "p7": "Identificar segmento",
+    "p8": "Pasos claves"
+  };
+
+  function esMobile() {
+    return window.innerWidth <= 768;
+  }
 
   function mostrarDatos(data) {
     // Ocultar loading
@@ -492,8 +563,9 @@
       }
     }
 
+    // Usar etiquetas diferentes según el dispositivo
     const labels = Object.keys(conteoMayorIgual3).map(
-      clave => encabezadosPersonalizados[clave] || clave
+      clave => esMobile() ? encabezadosCortos[clave] : encabezadosPersonalizados[clave]
     );
     const datosMayores = Object.values(conteoMayorIgual3);
     const datosMenores = Object.values(conteoMenor3);
@@ -507,7 +579,7 @@
           {
             label: "Respuestas Positivas (≥ 3)",
             data: datosMayores,
-            backgroundColor: "linear-gradient(135deg, #52c234, #41a127)",
+            backgroundColor: "rgba(82, 194, 52, 0.8)",
             borderColor: "#41a127",
             borderWidth: 2,
             borderRadius: 8,
@@ -516,7 +588,7 @@
           {
             label: "Respuestas Negativas (< 3)",
             data: datosMenores,
-            backgroundColor: "linear-gradient(135deg, #e74c3c, #c0392b)",
+            backgroundColor: "rgba(231, 76, 60, 0.8)",
             borderColor: "#c0392b",
             borderWidth: 2,
             borderRadius: 8,
@@ -531,15 +603,18 @@
           title: {
             display: true,
             text: "Comparativa de Respuestas por Pregunta",
-            font: { size: 18, family: "'Segoe UI', sans-serif" },
+            font: { 
+              size: esMobile() ? 14 : 18, 
+              family: "'Segoe UI', sans-serif" 
+            },
             color: "#2c3e50",
-            padding: 20
+            padding: esMobile() ? 15 : 20
           },
           legend: {
             position: 'top',
             labels: {
-              font: { size: 12 },
-              padding: 20,
+              font: { size: esMobile() ? 10 : 12 },
+              padding: esMobile() ? 15 : 20,
               usePointStyle: true,
               pointStyle: 'rectRounded'
             }
@@ -553,13 +628,39 @@
               color: 'rgba(0,0,0,0.1)'
             },
             ticks: {
-              font: { size: 11 }
+              font: { size: esMobile() ? 10 : 11 }
             }
           },
           x: {
             ticks: {
-              maxRotation: 45,
-              font: { size: 10 }
+              maxRotation: esMobile() ? 45 : 45,
+              font: { size: esMobile() ? 9 : 10 },
+              // En móvil, permitir que las etiquetas se muestren en múltiples líneas
+              callback: function(value, index, values) {
+                if (esMobile()) {
+                  const label = this.getLabelForValue(value);
+                  // Dividir texto largo en líneas más cortas
+                  if (label.length > 15) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    
+                    words.forEach(word => {
+                      if ((currentLine + word).length > 15) {
+                        if (currentLine) lines.push(currentLine.trim());
+                        currentLine = word + ' ';
+                      } else {
+                        currentLine += word + ' ';
+                      }
+                    });
+                    if (currentLine) lines.push(currentLine.trim());
+                    
+                    return lines;
+                  }
+                  return label;
+                }
+                return this.getLabelForValue(value);
+              }
             },
             grid: {
               display: false
@@ -569,6 +670,15 @@
         elements: {
           bar: {
             borderRadius: 6
+          }
+        },
+        // Mejorar el espaciado en móvil
+        layout: {
+          padding: {
+            left: esMobile() ? 5 : 10,
+            right: esMobile() ? 5 : 10,
+            top: esMobile() ? 10 : 20,
+            bottom: esMobile() ? 20 : 10
           }
         }
       }
@@ -631,15 +741,18 @@
             title: {
               display: true,
               text: encabezadosPersonalizados[pregunta] || pregunta,
-              font: { size: 14, weight: 'bold' },
+              font: { 
+                size: esMobile() ? 12 : 14, 
+                weight: 'bold' 
+              },
               color: "#2c3e50",
               padding: { top: 10, bottom: 20 }
             },
             legend: {
               position: 'bottom',
               labels: {
-                font: { size: 11 },
-                padding: 15,
+                font: { size: esMobile() ? 9 : 11 },
+                padding: esMobile() ? 10 : 15,
                 usePointStyle: true,
                 pointStyle: 'circle'
               }
@@ -655,6 +768,17 @@
       });
     }
   }
+
+  // Detectar cambios en la orientación/tamaño de pantalla
+  window.addEventListener('resize', function() {
+    // Opcional: regenerar gráficos si es necesario
+    setTimeout(() => {
+      const charts = Chart.instances;
+      Object.values(charts).forEach(chart => {
+        if (chart) chart.resize();
+      });
+    }, 100);
+  });
 
   // Cargar datos
   const script = document.createElement("script");
